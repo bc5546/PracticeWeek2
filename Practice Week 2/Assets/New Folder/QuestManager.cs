@@ -38,4 +38,25 @@ public class QuestManager : MonoBehaviour
         }
         
     }
+
+    public List<QuestDataSO> quests;
+
+    private void Start()
+    {
+        int count = 1;
+        foreach (var quest in quests) {
+            Debug.Log($"Quest{count} - {quest.name} (최소 레벨 {quest.QuestRequiredLevel})");
+            if (quest.GetType() == typeof(EncounterQuestDataSO))
+            {
+                EncounterQuestDataSO temp=quest as EncounterQuestDataSO;
+                Debug.Log($"{temp.targetNPCName}과 대화하기");
+            }
+            else if (quest.GetType() == typeof(MonsterQuestDataSO))
+            {
+                MonsterQuestDataSO temp = quest as MonsterQuestDataSO;
+                Debug.Log($"{temp.targetMonsterName}를 {temp.targetCount}마리 소탕");
+            }
+            count++;
+        }
+    }
 }
